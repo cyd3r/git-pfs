@@ -62,5 +62,6 @@ pub fn unlink_file(filename: String) -> Result<()> {
     let ignore_filename = as_ignore_filename(filename)?;
     rm_gitignore(ignore_filename.to_string())?;
     rm_tracked(ignore_filename)?;
+    println!("File unlinked from the storage. Don't forget to commit your .gitignore");
     Ok(())
 }

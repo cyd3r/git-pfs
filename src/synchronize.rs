@@ -17,9 +17,9 @@ pub fn synchronize() -> Result<()> {
     let ignore_file = File::open(gitignore_location()?)?;
 
     enum IgnoreRegion {
-        BeforeLinked = -1,
-        Linked = 0,
-        AfterLinked = 1,
+        BeforeLinked,
+        Linked,
+        AfterLinked,
     }
     let mut region = IgnoreRegion::BeforeLinked;
 

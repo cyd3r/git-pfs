@@ -45,6 +45,7 @@ fn add_gitignore(filename: &String, hash: String) -> Result<()> {
         writeln!(file, "{}", line)?;
     }
     file.flush()?;
+    println!("File added to the storage. Don't forget to commit your .gitignore");
     Ok(())
 }
 

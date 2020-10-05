@@ -23,7 +23,7 @@ pub fn locate(local_file: String) -> Result<()> {
         }
         if is_linked_region {
             if line == TRACK_FILENAME {
-                bail!("File is not present")
+                break;
             }
             else if line == local_file {
                 return_hash = true;
@@ -33,5 +33,5 @@ pub fn locate(local_file: String) -> Result<()> {
             is_linked_region = true;
         }
     }
-    bail!("File is not present");
+    bail!("File does not exist in the PFS section of the .gitignore");
 }
