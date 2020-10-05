@@ -1,6 +1,6 @@
 use anyhow::Result;
 use crate::paths::{gitignore_location, trackfile_location, get_storage_dir, get_git_toplevel, TRACK_FILENAME, IGNORE_START};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::io::{BufRead, BufReader, Write};
 use std::fs::File;
 
@@ -9,7 +9,7 @@ pub fn synchronize() -> Result<()> {
     let git_toplevel_dir = get_git_toplevel()?;
 
     // TODO: use an ordered hash map
-    let mut hashes = HashMap::new();
+    let mut hashes = BTreeMap::new();
     let mut ignore_lines_before = Vec::new();
     let mut ignore_lines_after = Vec::new();
 

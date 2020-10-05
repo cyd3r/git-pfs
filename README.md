@@ -48,4 +48,3 @@ In the `.gitignore` the filenames and their sha256 hashes are stored (the order 
 + Integrate with git hooks
 + Better error handling
 + Use a git library?
-+ Keep order of lines in `.gitignore`
