@@ -33,6 +33,24 @@ When you call PFS for the first time it will create some lines in your `.gitigno
 
 **IMPORTANT**: PFS relies heavily on some contents of your `.gitignore`. Do not edit the lines between `#>pfs` and `.pfstrack` on your own!
 
+## When should I run `git pfs sync`?
+
+Basically whenever your `.gitignore` changes or when you delete a linked file.
+
+You can make use of [git hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) to do this automatically for you but not all possible cases (e.g. `git reset --hard`) will be covered. Call `git pfs sync` in the following hooks:
+
++ post-checkout
++ post-merge
++ post-rewrite
+
+This should take care of most cases.
+
+An alternative approach is to use a file watcher, e.g. `inotifywait`:
+
+``` sh
+while inotifywait -e close_write .gitignore; do git pfs sync; done
+```
+
 ## How it works
 
 PFS uses two files: `.gitignore` and `.pfstrack` to keep track of which files have to be uploaded/removed/downloaded.
@@ -45,6 +63,5 @@ In the `.gitignore` the filenames and their sha256 hashes are stored (the order 
 
 + Make incremental copies to the storage
 + Recursive add/unlink
-+ Integrate with git hooks
 + Better error handling
 + Use a git library?
