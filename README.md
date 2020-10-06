@@ -8,6 +8,16 @@ PFS enables you to store (large) files somewhere else and not in your git reposi
 
 This is an experiment and has a number of flaws compared to Git LFS. If you just want to use LFS on a different storage, take a look at the [LFS Test Server](https://github.com/git-lfs/lfs-test-server) or other LFS server implementations.
 
+An incomplete list of disadvantages compared to Git LFS:
+
++ Every user must carefully setup the storage location
++ The storage directory must contain the same files for all users
++ `git pfs sync` has to be run manually and can be forgotton which can lead to serious problems
++ Manual edits to the PFS section of the `.gitignore` can break stuff
++ Deleting `.pfstrack` can break stuff
+
+But PFS works with only two text files and one git config value! And that's something, right?
+
 ## Setup
 
 You can directly execute the `git-pfs` executable but a more convenient method is to create a [git alias](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases):
