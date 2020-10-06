@@ -50,7 +50,11 @@ pub fn get_storage_dir() -> Result<PathBuf> {
     }
 
     if let Some(line) = String::from_utf8(output.stdout)?.lines().next() {
-        return Ok(PathBuf::from(line))
+        let storage_dir = PathBuf::from(line);
+        if !storage_dir.exists() {
+            bail!("The storage directory is set but does not exist or cannot be accessed")
+        }
+        return Ok(storage_dir)
     }
     bail!("Could not obtain storage directory")
 }
