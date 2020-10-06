@@ -24,13 +24,14 @@ fn add_gitignore(filename: &String, hash: String) -> Result<()> {
                     // the file does not exist here yet, add a new entry
                     new_lines.push(filename.to_string());
                     new_lines.push(format!("# {}", hash));
+                    inserted = true;
                 }
             }
             else if line == filename.to_string() {
                 skip_line = true;
-                inserted = true;
                 new_lines.push(filename.to_string());
                 new_lines.push(format!("# {}", hash));
+                inserted = true;
                 continue;
             }
         }
@@ -38,6 +39,15 @@ fn add_gitignore(filename: &String, hash: String) -> Result<()> {
             is_linked_region = true;
         }
         new_lines.push(line);
+    }
+
+    // does the PFS region exist?
+    if !inserted {
+        new_lines.push(IGNORE_START.to_string());
+        new_lines.push(filename.to_string());
+        new_lines.push(format!("# {}", hash));
+        new_lines.push(TRACK_FILENAME.to_string());
+        println!("Created the PFS section in the .gitignore for you. Do not edit any lines between '{}' and '{}'", IGNORE_START, TRACK_FILENAME);
     }
 
     let mut file = File::create(gitignore_location()?)?;

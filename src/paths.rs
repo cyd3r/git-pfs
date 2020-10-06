@@ -29,6 +29,7 @@ pub fn gitignore_location() -> Result<PathBuf> {
         writeln!(file, "{}", IGNORE_START)?;
         writeln!(file, "{}", TRACK_FILENAME)?;
         file.flush()?;
+        println!("Created the PFS section in the .gitignore for you. Do not edit any lines between '{}' and '{}'", IGNORE_START, TRACK_FILENAME);
     }
     Ok(path)
 }
@@ -36,6 +37,7 @@ pub fn trackfile_location() -> Result<PathBuf> {
     let path = get_git_toplevel()?.join(TRACK_FILENAME);
     if !path.exists() {
         File::create(&path)?;
+        println!("Created {} for you. Do not remove this file", TRACK_FILENAME);
     }
     Ok(path)
 }
